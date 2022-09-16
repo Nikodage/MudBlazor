@@ -93,7 +93,7 @@ namespace MudBlazor
                     return;
                 }
 
-                IsConnected = await _runtime.InvokeVoidAsyncWithErrorHandling("mudPopover.connect", Id); ;
+                IsConnected = await _runtime.InvokeVoidAsyncWithErrorHandlingAndStatus("mudPopover.connect", Id); ;
             }
             finally
             {
@@ -185,10 +185,7 @@ namespace MudBlazor
         {
             if (!_isInitialized) { return -1; }
 
-            var (success, value) = await _jsRuntime.InvokeAsyncWithErrorHandling<int>("mudpopoverHelper.countProviders");
-            if (success)
-                return value;
-            return 0;
+            return await _jsRuntime.InvokeAsyncWithErrorHandling<int>(default(int), "mudpopoverHelper.countProviders");
         }
 
         //TO DO add js test

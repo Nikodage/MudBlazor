@@ -57,7 +57,7 @@ namespace MudBlazor.Services
             if (_isObserving || _isDisposed)
                 return;
             _elementId = elementId;
-            _isObserving = await _jsRuntime.InvokeVoidAsyncWithErrorHandling("mudJsEvent.connect", _dotNetRef, elementId, options); ;
+            _isObserving = await _jsRuntime.InvokeVoidAsyncWithErrorHandlingAndStatus("mudJsEvent.connect", _dotNetRef, elementId, options); ;
         }
 
         /// <summary>

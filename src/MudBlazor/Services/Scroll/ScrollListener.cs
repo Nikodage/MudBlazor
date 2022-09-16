@@ -86,7 +86,7 @@ namespace MudBlazor
         private ValueTask<bool> Start()
         {
             _dotNetRef = DotNetObjectReference.Create(this);
-            return _js.InvokeVoidAsyncWithErrorHandling
+            return _js.InvokeVoidAsyncWithErrorHandlingAndStatus
                 ("mudScrollListener.listenForScroll",
                            _dotNetRef,
                            Selector);

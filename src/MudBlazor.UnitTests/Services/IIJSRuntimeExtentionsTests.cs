@@ -85,7 +85,7 @@ namespace MudBlazor.UnitTests.Services
 
             var runtime = runtimeMock.Object;
 
-            var (success, value) = await runtime.InvokeAsyncWithErrorHandling<double>("myMethod", 42, "blub");
+            var (success, value) = await runtime.InvokeAsyncWithErrorHandlingAndStatus<double>("myMethod", 42, "blub");
 
             success.Should().Be(true);
             value.Should().Be(42.0);
@@ -102,7 +102,7 @@ namespace MudBlazor.UnitTests.Services
 
             var runtime = runtimeMock.Object;
 
-            var (success, value) = await runtime.InvokeAsyncWithErrorHandling<double>("myMethod", 42, "blub");
+            var (success, value) = await runtime.InvokeAsyncWithErrorHandlingAndStatus<double>("myMethod", 42, "blub");
 
             success.Should().Be(false);
             value.Should().Be(0.0);
@@ -119,7 +119,7 @@ namespace MudBlazor.UnitTests.Services
 
             var runtime = runtimeMock.Object;
 
-            var (success, value) = await runtime.InvokeAsyncWithErrorHandling<double>(37.5, "myMethod", 42, "blub");
+            var (success, value) = await runtime.InvokeAsyncWithErrorHandlingAndStatus<double>(37.5, "myMethod", 42, "blub");
 
             success.Should().Be(false);
             value.Should().Be(37.5);

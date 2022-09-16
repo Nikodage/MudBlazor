@@ -161,7 +161,7 @@ namespace MudBlazor.Services
 
                     Listeners.Add(listenerId, subscriptionInfo);
 
-                    var interopResult = await JsRuntime.InvokeVoidAsyncWithErrorHandling
+                    var interopResult = await JsRuntime.InvokeVoidAsyncWithErrorHandlingAndStatus
                         ("mudResizeListenerFactory.listenForResize", DotNetRef, options, listenerId);
                     
                     if (interopResult == true)

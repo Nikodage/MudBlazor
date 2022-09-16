@@ -27,44 +27,44 @@ namespace MudBlazor
         }
 
         public static ValueTask MudFocusFirstAsync(this ElementReference elementReference, int skip = 0, int min = 0) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.focusFirst", elementReference, skip, min) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.focusFirst", elementReference, skip, min) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudFocusLastAsync(this ElementReference elementReference, int skip = 0, int min = 0) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.focusLast", elementReference, skip, min) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.focusLast", elementReference, skip, min) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudSaveFocusAsync(this ElementReference elementReference) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.saveFocus", elementReference) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.saveFocus", elementReference) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudRestoreFocusAsync(this ElementReference elementReference) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.restoreFocus", elementReference) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.restoreFocus", elementReference) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudBlurAsync(this ElementReference elementReference) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.blur", elementReference) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.blur", elementReference) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudSelectAsync(this ElementReference elementReference) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.select", elementReference) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.select", elementReference) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudSelectRangeAsync(this ElementReference elementReference, int pos1, int pos2) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.selectRange", elementReference, pos1, pos2) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.selectRange", elementReference, pos1, pos2) ?? ValueTask.CompletedTask;
 
         public static ValueTask MudChangeCssAsync(this ElementReference elementReference, string css) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.changeCss", elementReference, css) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.changeCss", elementReference, css) ?? ValueTask.CompletedTask;
 
         public static ValueTask<BoundingClientRect> MudGetBoundingClientRectAsync(this ElementReference elementReference) =>
-            elementReference.GetJSRuntime()?.InvokeAsync<BoundingClientRect>("mudElementRef.getBoundingClientRect", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
+            elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<BoundingClientRect>("mudElementRef.getBoundingClientRect", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
 
         /// <summary>
         /// Gets the client rect of the element 
         /// </summary>
         public static ValueTask<BoundingClientRect> MudGetClientRectFromParentAsync(this ElementReference elementReference) =>
-           elementReference.GetJSRuntime()?.InvokeAsync<BoundingClientRect>("mudElementRef.getClientRectFromParent", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
+            elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<BoundingClientRect>("mudElementRef.getClientRectFromParent", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
 
         /// <summary>
         /// Gets the client rect of the first child of the element.
         /// Useful when you want to know the dimensions of a render fragment and for that you wrap it into a div
         /// </summary>
         public static ValueTask<BoundingClientRect> MudGetClientRectFromFirstChildAsync(this ElementReference elementReference) =>
-           elementReference.GetJSRuntime()?.InvokeAsync<BoundingClientRect>("mudElementRef.getClientRectFromFirstChild", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
+           elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<BoundingClientRect>("mudElementRef.getClientRectFromFirstChild", elementReference) ?? ValueTask.FromResult(new BoundingClientRect());
 
         /// <summary>
         /// Returns true if the element has an ancestor with style position == "fixed"
@@ -72,11 +72,11 @@ namespace MudBlazor
         /// <param name="elementReference"></param>
         public static ValueTask<bool> MudHasFixedAncestorsAsync(this ElementReference elementReference) =>
             elementReference.GetJSRuntime()?
-            .InvokeAsync<bool>("mudElementRef.hasFixedAncestors", elementReference) ?? ValueTask.FromResult(false);
+            .InvokeAsyncWithErrorHandling<bool>("mudElementRef.hasFixedAncestors", elementReference) ?? ValueTask.FromResult(false);
 
 
         public static ValueTask MudChangeCssVariableAsync(this ElementReference elementReference, string variableName, int value) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.changeCssVariable", elementReference, variableName, value) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.changeCssVariable", elementReference, variableName, value) ?? ValueTask.CompletedTask;
 
         public static ValueTask<int> MudAddEventListenerAsync<T>(this ElementReference elementReference, DotNetObjectReference<T> dotnet, string @event, string callback, bool stopPropagation = false) where T : class
         {
@@ -88,7 +88,7 @@ namespace MudBlazor
                 {
                     parameterSpecs[i] = GetSerializationSpec(parameters.ElementAt(i));
                 }
-                return elementReference.GetJSRuntime()?.InvokeAsync<int>("mudElementRef.addEventListener", elementReference, dotnet, @event, callback, parameterSpecs, stopPropagation) ?? ValueTask.FromResult(0);
+                return elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<int>("mudElementRef.addEventListener", elementReference, dotnet, @event, callback, parameterSpecs, stopPropagation) ?? ValueTask.FromResult(0);
             }
             else
             {
@@ -97,7 +97,7 @@ namespace MudBlazor
         }
 
         public static ValueTask MudRemoveEventListenerAsync(this ElementReference elementReference, string @event, int eventId) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.removeEventListener", elementReference, eventId) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.removeEventListener", elementReference, eventId) ?? ValueTask.CompletedTask;
 
         private static object GetSerializationSpec(Type type)
         {
@@ -123,13 +123,13 @@ namespace MudBlazor
         }
 
         public static ValueTask<int> AddDefaultPreventingHandler(this ElementReference elementReference, string eventName) =>
-            elementReference.GetJSRuntime()?.InvokeAsync<int>("mudElementRef.addDefaultPreventingHandler", elementReference, eventName) ?? new ValueTask<int>(0);
+            elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<int>("mudElementRef.addDefaultPreventingHandler", elementReference, eventName) ?? new ValueTask<int>(0);
 
         public static ValueTask RemoveDefaultPreventingHandler(this ElementReference elementReference, string eventName, int listenerId) =>
-            elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.removeDefaultPreventingHandler", elementReference, eventName, listenerId) ?? ValueTask.CompletedTask;
+            elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.removeDefaultPreventingHandler", elementReference, eventName, listenerId) ?? ValueTask.CompletedTask;
 
         public static ValueTask<int[]> AddDefaultPreventingHandlers(this ElementReference elementReference, string[] eventNames) =>
-            elementReference.GetJSRuntime()?.InvokeAsync<int[]>("mudElementRef.addDefaultPreventingHandlers", elementReference, eventNames) ?? new ValueTask<int[]>(Array.Empty<int>());
+            elementReference.GetJSRuntime()?.InvokeAsyncWithErrorHandling<int[]>("mudElementRef.addDefaultPreventingHandlers", elementReference, eventNames) ?? new ValueTask<int[]>(Array.Empty<int>());
 
         public static ValueTask RemoveDefaultPreventingHandlers(this ElementReference elementReference, string[] eventNames, int[] listenerIds)
         {
@@ -138,7 +138,7 @@ namespace MudBlazor
                 throw new ArgumentException($"Number of elements in {nameof(eventNames)} and {nameof(listenerIds)} has to match.");
             }
 
-            return elementReference.GetJSRuntime()?.InvokeVoidAsync("mudElementRef.removeDefaultPreventingHandlers", elementReference, eventNames, listenerIds) ?? ValueTask.CompletedTask;
+            return elementReference.GetJSRuntime()?.InvokeVoidAsyncWithErrorHandling("mudElementRef.removeDefaultPreventingHandlers", elementReference, eventNames, listenerIds) ?? ValueTask.CompletedTask;
         }
     }
 }
